@@ -54,7 +54,7 @@ class PessoaController {
             await database.Pessoas.destroy({ where: { id: Number(id) }})
             return res.status(200).json({ mensagem: `id ${id} deletado` })
         } catch (error) {
-            res.status(500).json(error.message);
+            return res.status(500).json(error.message);
         }
     }
 }
