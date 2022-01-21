@@ -1,4 +1,5 @@
 node_modules
 diagrama
+api
 anotacoes.txt
-config/
+api/config
