@@ -1,10 +1,10 @@
-const res = require("express/lib/response");
-const database = require("../models");
+const Services = require("../services/Services");
+const niveisServices = new Services('Niveis');
 
 class Niveis {
     static async pegaTodosNiveis(req, res) {
         try {
-            const todosNiveis = await database.Niveis.findAll();
+            const todosNiveis = await niveisServices.pegaTodosOsRegistros();
             res.status(200).json(todosNiveis);
         } catch (error) {
             return res.status(500).json(error.message);
