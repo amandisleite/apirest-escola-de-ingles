@@ -1,5 +1,5 @@
-const Services = require("../services/Services");
-const niveisServices = new Services('Niveis');
+const { NiveisServices } = require("../services");
+const niveisServices = new NiveisServices();
 
 class Niveis {
     static async pegaTodosNiveis(req, res) {
@@ -15,7 +15,7 @@ class Niveis {
         const { id } = req.params;
 
         try {
-            const umNivel = await database.Niveis.findOne({ where: { id: Number(id) }});
+            const umNivel = await niveisServices.pegaUmRegistro(Number(id));
             return res.status(200).json(umNivel);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -26,7 +26,7 @@ class Niveis {
         const novoNivel = req.body;
 
         try {
-            const novoNivelCriado = await database.Niveis.create(novoNivel);
+            const novoNivelCriado = await niveisServices.criaRegistro(novoNivel);
             return res.status(200).json(novoNivelCriado);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -38,8 +38,8 @@ class Niveis {
         const novasInfos = req.body;
 
         try {
-            await database.Niveis.update(novasInfos, { where: { id: Number(id) }});
-            const nivelAtualizado = await database.Niveis.findOne({ where: { id: Number(id) }});
+            await niveisServices.atualizaRegistro(novasInfos, Number(id));
+            const nivelAtualizado = await niveisServices.pegaUmRegistro(Number(id));
             return res.status(200).json(nivelAtualizado);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -50,7 +50,7 @@ class Niveis {
         const { id } = req.params;
 
         try {
-            await database.Niveis.destroy({ where: { id: Number(id) }});
+            await niveisServices.apagaRegistro(Number(id));
             return res.status(200).json(`nível ${id} deletado`);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -61,8 +61,8 @@ class Niveis {
         const { id } = req.params;
 
         try {
-            await database.Niveis.restore({ where: { id: Number(id) }})
-            return res.status(200).json(`nível de id ${id} foi restaurado`)
+            await niveisServices.restauraRegistro(Number(id));
+            return res.status(200).json(`nível de id ${id} foi restaurado`);
         } catch(error) {
             return res.status(500).json(error.message);
         }
