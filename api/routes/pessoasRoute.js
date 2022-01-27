@@ -12,6 +12,7 @@ router.delete('/pessoas/:id', PessoaController.apagaPessoa);
 router.post('/pessoas/:id/restaura', PessoaController.restauraPessoa);
 
 router.get('/pessoas/matricula/:turmaId/confirmadas', PessoaController.pegaMatriculasPorTurma);
+router.get('/pessoas/matricula/lotada', PessoaController.pegaTurmasLotadas);
 
 router.get('/pessoas/:estudanteId/matricula', PessoaController.pegaMatriculas);
 router.get('/pessoas/:estudanteId/matricula/:matriculaId', PessoaController.pegaUmaMatricula);
